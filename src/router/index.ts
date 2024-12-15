@@ -13,6 +13,11 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: () => import('@/modules/lading/layout/LoginView.vue')
+    },
+    {
+      path: "/finansa",
+      name: "finansa",
+      component: () => import('@/modules/menu/MenuFinansa.vue')
     }
   ],
 })
