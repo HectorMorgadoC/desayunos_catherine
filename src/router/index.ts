@@ -7,17 +7,17 @@ const router = createRouter({
     {
       path: "/",
       name: "lading",
-      component: () => import('@/views/LadingView.vue')
+      component: () => import('@/modules/views/LadingView.vue')
     },
     {
       path: "/login",
       name: "login",
-      component: () => import('@/modules/lading/layout/LoginView.vue')
+      component: () => import('@/modules/auth/views/LoginView.vue')
     },
     {
       path: "/finansa",
       name: "finansa",
-      component: () => import('@/modules/menu/MenuFinansa.vue')
+      component: () => import('@/modules/menu/layout/MenuFinansa.vue')
     }
   ],
 })

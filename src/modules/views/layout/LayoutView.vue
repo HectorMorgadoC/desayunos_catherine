@@ -3,7 +3,7 @@ import ImageBanner from '@/modules/image/ImageBanner.vue';
 </script>
 
 <template>
-  <div class="max-w-6xl mx-auto p-4 mt-8">
+  <div class="max-w-6xl h-full mx-auto p-4 mt-8">
     <div class="mb-8 p-6 rounded-lg">
       <div class="flex gap-8 items-center">
         <!-- Contenedor de Títulos -->

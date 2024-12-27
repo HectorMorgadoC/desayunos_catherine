@@ -1,6 +1,6 @@
 <template>
 <BrowserView />
-<div class="max-w-6xl mx-auto p-4 mt-8">
+<div class="max-w-6xl mx-auto p-4 h-screen mt-8">
     <div class="mb-8 p-6 rounded-lg">
       <div class="flex gap-8 items-center">
         <!-- Contenedor de formulario -->
@@ -28,7 +28,7 @@
       <input
         type="submit"
         value="Ingresar"
-        class="w-full h-8 text-center text-sm text-orange-600 border border-solid border-orange-600 rounded-lg hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent"
+        class="w-full h-10 text-center text-sm text-orange-600 border border-solid border-orange-600 rounded-lg hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent"
       />
     </div>
   </form>
@@ -42,8 +42,8 @@
 </template>
 <script setup lang="ts">
 import ImageBanner from '@/modules/image/ImageBanner.vue';
-import BrowserView from '@/views/layout/BrowserView.vue';
-import FooterView from '@/views/layout/FooterView.vue';
+import BrowserView from '@/modules/views/layout/BrowserView.vue';
+import FooterView from '@/modules/views/layout/FooterView.vue';
 
 
 </script>

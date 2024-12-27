@@ -8,5 +8,5 @@
 </template>
 
 <script setup lang="ts">
-import ProductView from '@/components/ProductView.vue';
+import ProductView from '@/modules/products/components/ProductView.vue';
 </script>
