@@ -1,13 +1,8 @@
 <template>
-<<<<<<< HEAD
-<BrowserView />
-<div class="max-w-6xl mx-auto p-4 h-screen mt-8">
-=======
 <BrowserView
 :connection = 'false'
 :message = "'Ingreso de usuario'" />
 <div class="max-w-6xl mx-auto p-4 mt-8">
->>>>>>> eb334ff (Agregar configuración de entorno, Add environment settings, authentication interfaces, and menus; implement login and menu actions; integrate Vue Query Devtools and Toast; Update routes and views.)
     <div class="mb-8 p-6 rounded-lg">
       <div class="flex gap-8 items-center">
         <!-- Contenedor de formulario -->
@@ -52,13 +47,9 @@
     <FooterView />
 </template>
 <script setup lang="ts">
-import ImageBanner from '@/modules/image/ImageBanner.vue';
-<<<<<<< HEAD
-import BrowserView from '@/modules/views/layout/BrowserView.vue';
 import FooterView from '@/modules/views/layout/FooterView.vue';
-=======
 import BrowserView from '@/views/layout/BrowserView.vue';
-import FooterView from '@/views/layout/FooterView.vue';
+import ImageBanner from '@/modules/image/ImageBanner.vue';
 import { useAuthStore } from '../store/auth.store';
 import { useToast } from 'vue-toastification';
 import { reactive, ref } from 'vue';
@@ -70,7 +61,6 @@ const authStore = useAuthStore();
 
 const userNameInputRef = ref<HTMLInputElement | null>(null);
 const passwordInputRef = ref<HTMLInputElement | null>(null);
->>>>>>> eb334ff (Agregar configuración de entorno, Add environment settings, authentication interfaces, and menus; implement login and menu actions; integrate Vue Query Devtools and Toast; Update routes and views.)
 
 
 const myForm = reactive({
@@ -93,7 +83,7 @@ const onLogin = async () => {
 
   if (ok) {
     console.log('ok');
-    router.push({ name: 'finansa' });
+    router.push({ name: 'finance' });
   } else {
     toast.error('Error al iniciar sesión email u contraseña incorrecta');
   }

@@ -82,10 +82,9 @@
 <script setup lang="ts">
 import { useMenuStore } from '../store/menu.store';
 
-const balance = useMenuStore;
+const menu = useMenuStore()
 
-
-console.log(balance);
+console.log(menu.product);
 
 
 

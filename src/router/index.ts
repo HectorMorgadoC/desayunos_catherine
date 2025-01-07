@@ -15,16 +15,12 @@ const router = createRouter({
       component: () => import('@/modules/auth/views/LoginView.vue')
     },
     {
-      path: "/finansa",
-      name: "finansa",
-<<<<<<< HEAD
-      component: () => import('@/modules/menu/layout/MenuFinansa.vue')
-=======
+      path: "/finance",
+      name: "finance",
       component: () => import('@/modules/menu/views/MenuFinansaVue.vue'),
       meta: { requiresAuth: true },
       children: [
       ]
->>>>>>> eb334ff (Agregar configuración de entorno, Add environment settings, authentication interfaces, and menus; implement login and menu actions; integrate Vue Query Devtools and Toast; Update routes and views.)
     }
   ],
 })

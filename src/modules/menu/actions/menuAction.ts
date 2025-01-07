@@ -4,41 +4,39 @@ import { useLocalStorage } from "@vueuse/core";
 import router from "@/router";
 import { isAxiosError } from "axios";
 
-const token = useLocalStorage('token',null).value
+const token = useLocalStorage('token', null).value;
 
-export const dataMenu = async():Promise<DataMenu|MenuError > => {
-
+export const dataMenu = async(): Promise<DataMenu | MenuError> => {
     try {
-      if (!token) {
-        router.push({ name: 'login' })
-      }
-      const  { data } = await apiFinansas.get<DataMenu>('/menu',{
-        headers: {
-          'Authorization': `Bearer ${token}`
+        if (!token) {
+            router.push({ name: 'login' });
+            return {
+                message: 'Usuario no autenticado',
+                status: 401
+            };
         }
-      })
-      console.log(data)
-      return {
-        balance: data.balance,
-        product: data.product,
-        payment_method: data.payment_method
-      }
 
+        const { data } = await apiFinansas.get('/finance', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
 
+        return {
+            balance: data.balance,
+            product: data.product,
+            payment_method: data.payment_method
+        };
     }
     catch (error) {
-      if ( isAxiosError(error) && error.response?.status === 401 ) {
-          return {
-            message: 'Usuario o contraseña incorrectos',
-            status: 403
-          }
-      }
+        if (isAxiosError(error) && error.response?.status === 401) {
+            return {
+                message: 'Token inválido o expirado',
+                status: 401
+            };
+        }
 
-      console.log(error)
-      throw new Error('No se pudo realizar la peticion')
-
+        console.error(error);
+        throw new Error('No se pudo realizar la petición');
     }
-  }
-
-
-
+};
