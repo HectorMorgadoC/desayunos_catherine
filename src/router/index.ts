@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useLocalStorage } from '@vueuse/core'
 
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -20,6 +21,24 @@ const router = createRouter({
       component: () => import('@/modules/menu/views/MenuFinansaVue.vue'),
       meta: { requiresAuth: true },
       children: [
+        {
+          path: "product",
+          name: "product",
+          component: () => import('@/modules/products/views/ProductView.vue'),
+          meta: { requiresAuth: true },
+        },
+        {
+          path: "income",
+          name: "income",
+          component: () => import('@/modules/income/views/IncomeView.vue'),
+          meta: { requiresAuth: true },
+        },
+        {
+          path: "expenditure",
+          name: "expenditure",
+          component: () => import('@/modules/expenditures/views/ExpenditureView.vue'),
+          meta: { requiresAuth: true },
+        }
       ]
     }
   ],

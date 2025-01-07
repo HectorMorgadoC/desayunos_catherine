@@ -6,6 +6,7 @@ import { isAxiosError } from "axios";
 
 const token = useLocalStorage('token', null).value;
 
+
 export const dataMenu = async(): Promise<DataMenu | MenuError> => {
     try {
         if (!token) {
@@ -16,7 +17,7 @@ export const dataMenu = async(): Promise<DataMenu | MenuError> => {
             };
         }
 
-        const { data } = await apiFinansas.get('/finance', {
+        const { data } = await apiFinansas.get('/finance/', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -29,14 +30,16 @@ export const dataMenu = async(): Promise<DataMenu | MenuError> => {
         };
     }
     catch (error) {
-        if (isAxiosError(error) && error.response?.status === 401) {
+        if (isAxiosError(error) && error.response?.status === 403) {
             return {
                 message: 'Token inválido o expirado',
-                status: 401
+                status: 403
             };
         }
 
         console.error(error);
+        router.push({ name: 'login' });
         throw new Error('No se pudo realizar la petición');
+
     }
 };
