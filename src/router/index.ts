@@ -20,27 +20,26 @@ const router = createRouter({
       name: "finance",
       component: () => import('@/modules/menu/views/MenuFinansaVue.vue'),
       meta: { requiresAuth: true },
-      children: [
+    },
         {
-          path: "product",
+          path: "/finance/product",
           name: "product",
           component: () => import('@/modules/products/views/ProductView.vue'),
           meta: { requiresAuth: true },
         },
         {
-          path: "income",
+          path: "/finance/income",
           name: "income",
           component: () => import('@/modules/income/views/IncomeView.vue'),
           meta: { requiresAuth: true },
         },
         {
-          path: "expenditure",
+          path: "/finance/expenditure",
           name: "expenditure",
           component: () => import('@/modules/expenditures/views/ExpenditureView.vue'),
           meta: { requiresAuth: true },
         }
-      ]
-    }
+
   ],
 })
 

@@ -19,9 +19,10 @@
         </div>
       </div>
     </div>
+    <RouterView />
   </div>
   <FooterView />
-  <router-view />
+
 </template>
 
 <script setup lang="ts">
@@ -33,6 +34,7 @@ import type { Product,PaymentMethod } from '../interface/menuData';
 import router from '@/router';
 import { RouterView } from 'vue-router';
 import { ref } from 'vue'
+
 
 
 const listMenu = async() => {
@@ -56,11 +58,8 @@ const listMenu = async() => {
       }
 }
 
-
 const balance = ref<number>(useLocalStorage<number>('balance', 0).value)
 
 listMenu()
-
-
 
 </script>
