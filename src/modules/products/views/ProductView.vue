@@ -8,9 +8,15 @@
       <div class="flex gap-8 items-start">
         <div>
           <ul class="menu rounded-box w-56">
-            <li class="flex items-center"><button class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Registrar </button></li>
-            <li class="flex items-center"><button class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Modificar </button></li>
-            <li class="flex items-center"><button class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar </button></li>
+            <li class="flex items-center">
+              <button class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Registrar </button>
+            </li>
+            <li class="flex items-center">
+              <button class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Modificar </button>
+            </li>
+            <li class="flex items-center">
+              <button class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar </button>
+            </li>
           </ul>
         </div>
         <div>
@@ -19,24 +25,32 @@
 
           </div>
           <div class="overflow-x-auto">
-          <table class="table table-zebra">
-
+          <table v-if="false" class="table table-zebra">
             <thead>
               <tr>
-
                 <th>Producto</th>
                 <th>Precio</th>
-
               </tr>
             </thead>
             <tbody>
-
               <tr v-for="(product, index) in listProduct" :key="index">
                 <td class="border border-gray-300 px-4 py-2">{{ product.description }}</td>
                 <td class="border border-gray-300 px-4 py-2">{{ product.value }}</td>
               </tr>
             </tbody>
           </table>
+          <div>
+            <form >
+              <div class="flex flex-col">
+                <label class="">Ingrese la descripcion del producto</label>
+                <input class="" type="text">
+                <label class="">Ingrese el valor del producto</label>
+                <input class="" type="text">
+                <input class="" type="submit" value="Registrar">
+              </div>
+          </form>
+          </div>
+
         </div>
         </div>
       </div>
@@ -47,10 +61,10 @@
 
 <script setup lang="ts">
   import type { Product } from '@/modules/menu/interface/menuData';
-import BrowserView from '@/modules/views/layout/BrowserView.vue'
+  import BrowserView from '@/modules/views/layout/BrowserView.vue'
   import FooterView from '@/modules/views/layout/FooterView.vue'
-import { useLocalStorage } from '@vueuse/core';
-import { ref } from 'vue'
+  import { useLocalStorage } from '@vueuse/core';
+  import { ref } from 'vue'
 
   const listProduct = ref(useLocalStorage<Product[]>('product',[]))
   console.log(listProduct.value)

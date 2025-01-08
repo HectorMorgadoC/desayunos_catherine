@@ -5,13 +5,13 @@ export interface DataMenu {
 }
 
 export interface Product {
-  id: string
+  id?: string
   description: string
   value: number
 }
 
 export interface PaymentMethod {
-  id: string
+  id?: string
   description: string
 }
 
