@@ -9,7 +9,10 @@
         <div>
           <ul class="menu rounded-box w-56">
             <li class="flex items-center">
-              <button class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Registrar </button>
+              <RouterLink
+              :to="{name : 'productRegistration'}"
+              class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"
+              > Registrar </RouterLink>
             </li>
             <li class="flex items-center">
               <button class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Modificar </button>
@@ -25,7 +28,7 @@
 
           </div>
           <div class="overflow-x-auto">
-          <table v-if="false" class="table table-zebra">
+          <table class="table table-zebra">
             <thead>
               <tr>
                 <th>Producto</th>
@@ -39,18 +42,6 @@
               </tr>
             </tbody>
           </table>
-          <div>
-            <form >
-              <div class="flex flex-col">
-                <label class="">Ingrese la descripcion del producto</label>
-                <input class="" type="text">
-                <label class="">Ingrese el valor del producto</label>
-                <input class="" type="text">
-                <input class="" type="submit" value="Registrar">
-              </div>
-          </form>
-          </div>
-
         </div>
         </div>
       </div>
@@ -67,6 +58,8 @@
   import { ref } from 'vue'
 
   const listProduct = ref(useLocalStorage<Product[]>('product',[]))
-  console.log(listProduct.value)
+
+  
+
 
 </script>
