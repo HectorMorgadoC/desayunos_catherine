@@ -15,7 +15,10 @@
               > Registrar </RouterLink>
             </li>
             <li class="flex items-center">
-              <button class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Modificar </button>
+              <RouterLink
+              :to="{name : 'productUpdate'}"
+              class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"
+              > Modificar </RouterLink>
             </li>
             <li class="flex items-center">
               <button class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar </button>
@@ -59,7 +62,7 @@
 
   const listProduct = ref(useLocalStorage<Product[]>('product',[]))
 
-  
+
 
 
 </script>

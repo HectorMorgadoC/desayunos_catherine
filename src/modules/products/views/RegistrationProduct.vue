@@ -34,7 +34,7 @@
                 <input
                 v-model="newProduct.value"
                 class=""
-                type="text"
+                type="number"
                 placeholder="ingrese precio"
                 required
                 >
@@ -57,16 +57,30 @@
   import FooterView from '@/modules/views/layout/FooterView.vue';
 import { reactive } from 'vue';
 import { RegistrationProduct } from '../actions/createProduct-action';
-
+import { useToast } from 'vue-toastification'
 
 const newProduct = reactive({
       description: '',
       value:0
     })
 
+const registerProduct = async() => {
+  const toast = useToast()
+  try {
+    const newRegisterProductData = await RegistrationProduct(newProduct.description, newProduct.value);
 
-const registerProduct = () => {
-  const newRegisterProduct = RegistrationProduct(newProduct.description, newProduct.value);
-  console.log(newRegisterProduct)
+    if ('description' in newRegisterProductData) {
+      const { title, description } = newRegisterProductData
+      newProduct.description = ''
+      newProduct.value = 0
+      toast.success(`${title} : ${description}`)
+    } else {
+      toast.error('Nuevo producto no registrado')
+    }
+
+  } catch (error) {
+    throw new Error(`Error new register product: ${error}`)
+  }
+
 }
 </script>
