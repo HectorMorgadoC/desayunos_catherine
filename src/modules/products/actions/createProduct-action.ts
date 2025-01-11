@@ -21,7 +21,7 @@ export const RegistrationProduct = async (
   value: number
 ): Promise<ProductResponse | ErrorRequest > => {
   const token = useLocalStorage('token', null).value
-  console.log(typeof(value))
+
   if (!token) {
     router.push({ name: 'landing' })
     return {
