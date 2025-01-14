@@ -108,11 +108,7 @@
         value: 0
       }
 
-    return productSelect
     }
-
-
-
     return productSelect
   }
 

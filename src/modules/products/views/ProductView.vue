@@ -21,7 +21,9 @@
               > Modificar </RouterLink>
             </li>
             <li class="flex items-center">
-              <button class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar </button>
+              <RouterLink
+              :to="{name: 'productDelete'}"
+              class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar </RouterLink>
             </li>
           </ul>
         </div>
