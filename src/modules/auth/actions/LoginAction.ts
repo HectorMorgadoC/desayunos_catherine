@@ -22,7 +22,8 @@ export const loginAction = async (username: string, password: string)
     const { data } = await apiFinansas.post<AuthResponse>('/login', params, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
-      }
+      },
+      timeout: 20000
     })
     return {
       token: data.token

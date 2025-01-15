@@ -49,7 +49,7 @@
   import { useLocalStorage } from '@vueuse/core';
   import { ref } from 'vue';
   import { useToast } from 'vue-toastification';
-  import ModalProduct from '../components/ModalProduct.vue';
+  import ModalProduct  from '../components/ModalProduct.vue';
   import { deleteProduct } from '../actions/deleteProduct-action';
 import router from '@/router';
 
@@ -70,8 +70,9 @@ import router from '@/router';
 
   const deleteRegisterProduct  = async(id: string) => {
     const { data } = await deleteProduct(id)
+    console.log( data )
     router.push({name: 'product'})
-    toast.success(`${data.title} : ${data.description}`)
+    toast.success(`Producto eliminado`)
 
 
   }

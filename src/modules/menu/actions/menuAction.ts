@@ -17,11 +17,12 @@ export const dataMenu = async(): Promise<DataMenu | MenuError> => {
             };
         }
 
-        const { data } = await apiFinansas.get('/finance/', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
+    const { data } = await apiFinansas.get('/finance/', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        timeout: 10000
+    });
 
         return {
             balance: data.balance,

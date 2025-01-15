@@ -44,10 +44,6 @@
 <script setup lang="ts">
  import { ref, type PropType } from "vue";
 
-
-
-
-
 defineProps({
   onSecondaryAction: {
     type: Function as PropType<(payload: MouseEvent) => void>,
@@ -59,10 +55,6 @@ defineProps({
     required: true
   }
 });
-
-
-
-
 
 // Estado para controlar la apertura del modal
 const isModalOpen = ref(false);

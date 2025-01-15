@@ -1,29 +1,35 @@
 <template>
   <BrowserView
   :connection="false"
-  :message="'Menu'"
+  :message="'Ingresos'"
   />
   <div class="min-h-screen mx-auto p-4 mt-2">
     <div class="mb-8 p-6 rounded-lg">
       <div class="flex gap-8 items-start">
         <div>
           <ul class="menu rounded-box w-56">
-            <li class="flex items-center"><RouterLink class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Productos </RouterLink></li>
-            <li class="flex items-center"><RouterLink class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Ingresos </RouterLink></li>
-            <li class="flex items-center"><RouterLink class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Egresos </RouterLink></li>
+            <li class="flex items-center"><RouterLink class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Ventas </RouterLink></li>
+            <li class="flex items-center"><RouterLink class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Creditos </RouterLink></li>
+            <li class="flex items-center"><RouterLink class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar ingreso </RouterLink></li>
           </ul>
         </div>
         <div>
           <div>
 
-            <form action="">
+            <form @submit.prevent="dateRegister">
               <label class="form-control w-full max-w-xs">
               <div class="label">
                 <span class="label-text text-orange-300">Ingrese la fecha</span>
               </div>
               </label>
               <div class="flex">
-                <input type="date" placeholder="Type here" class="background_all px-2 py-1 text-sm border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500 " />
+                <input
+                type="date"
+                placeholder="Type here"
+                class="background_all px-2 py-1 text-sm border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500 "
+                v-model="dateIncome.date"
+                />
+
                 <input type="submit" value="consultar" class="ml-5 py-1 px-2 text-sm border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500"/>
               </div>
 
@@ -72,3 +78,21 @@
   </div>
   <FooterView />
 </template>
+
+<script setup lang="ts">
+    import BrowserView from '@/views/layout/BrowserView.vue';
+    import FooterView from '@/modules/views/layout/FooterView.vue';
+    import { reactive } from 'vue';
+import { getIncomeForDate } from '../actions/getIncomeForDate-action';
+
+    const dateIncome = reactive({
+        date: ''
+    })
+
+    const dateRegister = async() => {
+        const { data } = await getIncomeForDate(dateIncome.date)
+
+        console.log(data)
+    }
+
+</script>
