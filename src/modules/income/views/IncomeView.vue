@@ -8,9 +8,9 @@
       <div class="flex gap-8 items-start">
         <div>
           <ul class="menu rounded-box w-56">
-            <li class="flex items-center"><RouterLink class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Ventas </RouterLink></li>
-            <li class="flex items-center"><RouterLink class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Creditos </RouterLink></li>
-            <li class="flex items-center"><RouterLink class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar ingreso </RouterLink></li>
+            <li class="flex items-center"><button  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Ventas </button></li>
+            <li class="flex items-center"><button  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Creditos </button></li>
+            <li class="flex items-center"><button  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar ingreso </button></li>
           </ul>
         </div>
         <div>
@@ -30,47 +30,38 @@
                 v-model="dateIncome.date"
                 />
 
-                <input type="submit" value="consultar" class="ml-5 py-1 px-2 text-sm border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500"/>
+                <button
+                class="ml-5 py-1 px-2 text-sm border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500"
+                >consultar</button>
               </div>
 
             </form>
 
           </div>
           <div class="overflow-x-auto">
-          <table class="table table-zebra">
-
+              <p v-if="messageStatus">No hay registro con la fecha</p>
+              <table v-else class="table table-zebra">
             <thead>
               <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Job</th>
-                <th>Favorite Color</th>
+                <th>Fecha</th>
+                <th>Tipo de ingreso</th>
+                <th>ingreso</th>
               </tr>
             </thead>
             <tbody>
-
-              <tr>
-                <th>1</th>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
-                <td>Blue</td>
+              <tr v-for="( incomeData, index ) in income " :key="index">
+                <td>{{ incomeData.date }}</td>
+                <td>{{ incomeData.income_type }}</td>
+                <td>{{ incomeData.value }} /s</td>
               </tr>
-
               <tr>
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>Desktop Support Technician</td>
-                <td>Purple</td>
-              </tr>
-
-              <tr>
-                <th>3</th>
-                <td>Brice Swyre</td>
-                <td>Tax Accountant</td>
-                <td>Red</td>
+                <td>
+                  {{ totalIncome }} /s
+                </td>
               </tr>
             </tbody>
           </table>
+
         </div>
         </div>
       </div>
@@ -82,17 +73,46 @@
 <script setup lang="ts">
     import BrowserView from '@/views/layout/BrowserView.vue';
     import FooterView from '@/modules/views/layout/FooterView.vue';
-    import { reactive } from 'vue';
-import { getIncomeForDate } from '../actions/getIncomeForDate-action';
+    import { reactive, ref } from 'vue';
+    import { getIncomeForDate } from '../actions/getIncomeForDate-action';
+    import type { Income } from '../interface/income-interface';
 
     const dateIncome = reactive({
         date: ''
     })
 
-    const dateRegister = async() => {
+    const income = ref<Income[]>([])
+    const messageStatus = ref<boolean>(false)
+    const totalIncome = ref<number>(0)
+    const dateRegister = async () => {
+      try {
         const { data } = await getIncomeForDate(dateIncome.date)
+        messageCondition(data)
+        income.value = data
+        totalIncome.value = totalValueIncome(income.value)
+      } catch (error) {
+        throw new Error(`Error en datos de ingreso: ${error}`)
 
-        console.log(data)
+      }
+
     }
+
+    const messageCondition = (income: Income[]) => {
+      if( income.length <= 0 ) {
+      messageStatus.value = true
+    } else {
+      messageStatus.value = false
+    }
+    }
+
+    const totalValueIncome = (income: Income[] ): number => {
+      let totalIncome = 0
+      income.map( i => {
+        totalIncome = totalIncome + i.value
+      })
+
+      return totalIncome
+    }
+
 
 </script>
