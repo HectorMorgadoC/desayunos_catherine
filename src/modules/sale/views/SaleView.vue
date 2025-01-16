@@ -1,16 +1,17 @@
+
 <template>
   <BrowserView
   :connection="false"
-  :message="'Ingresos'"
+  :message="'Ventas'"
   />
   <div class="min-h-screen mx-auto p-4 mt-2">
     <div class="mb-8 p-6 rounded-lg">
       <div class="flex gap-8 items-start">
         <div>
           <ul class="menu rounded-box w-56">
-            <li class="flex items-center"><RouterLink :to="{ name: 'sale' }"  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Ventas </RouterLink></li>
-            <li class="flex items-center"><button  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Creditos </button></li>
-            <li class="flex items-center"><button  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar ingreso </button></li>
+            <li class="flex items-center"><RouterLink :to="{name: 'saleRegistration'}"  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Registrar venta </RouterLink></li>
+            <li class="flex items-center"><button  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar venta </button></li>
+            <li class="flex items-center"><button  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar ventas </button></li>
           </ul>
         </div>
         <div>
@@ -27,7 +28,7 @@
                 type="date"
                 placeholder="Type here"
                 class="background_all px-2 py-1 text-sm border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500 "
-                v-model="dateIncome.date"
+                v-model="dateSale.date"
                 />
 
                 <button
@@ -44,20 +45,19 @@
             <thead>
               <tr>
                 <th>Fecha</th>
-                <th>Tipo de ingreso</th>
-                <th>ingreso</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Metodo de pago</th>
+                <th>Total</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="( incomeData, index ) in income " :key="index">
-                <td>{{ incomeData.date }}</td>
-                <td>{{ incomeData.income_type }}</td>
-                <td>{{ incomeData.value }} /s</td>
-              </tr>
-              <tr>
-                <td>
-                  {{ totalIncome }} /s
-                </td>
+              <tr v-for="( saleData, index ) in sale " :key="index">
+                <td>{{ saleData.date }}</td>
+                <td>{{ saleData.description_product }}</td>
+                <td>{{ saleData.quantity }}</td>
+                <td>{{ saleData.payment_method }}</td>
+                <td>{{ saleData.total_price }} /s</td>
               </tr>
             </tbody>
           </table>
@@ -74,22 +74,20 @@
     import BrowserView from '@/views/layout/BrowserView.vue';
     import FooterView from '@/modules/views/layout/FooterView.vue';
     import { reactive, ref } from 'vue';
-    import { getIncomeForDate } from '../actions/getIncomeForDate-action';
-    import type { Income } from '../interface/income-interface';
+    import { getSaleForDate } from '../actions/getSaleForDate-action';
+    import type { Sale } from '../interface/sale'
 
-    const dateIncome = reactive({
+    const dateSale = reactive({
         date: ''
     })
 
-    const income = ref<Income[]>([])
+    const sale = ref<Sale[]>([])
     const messageStatus = ref<boolean>(false)
-    const totalIncome = ref<number>(0)
     const dateRegister = async () => {
       try {
-        const { data } = await getIncomeForDate(dateIncome.date)
+        const { data } = await getSaleForDate(dateSale.date)
         messageCondition(data)
-        income.value = data
-        totalIncome.value = totalValueIncome(income.value)
+        sale.value = data
       } catch (error) {
         throw new Error(`Error en datos de ingreso: ${error}`)
 
@@ -97,21 +95,12 @@
 
     }
 
-    const messageCondition = (income: Income[]) => {
-      if( income.length <= 0 ) {
+    const messageCondition = (sale: Sale[]) => {
+      if( sale.length <= 0 ) {
       messageStatus.value = true
     } else {
       messageStatus.value = false
     }
-    }
-
-    const totalValueIncome = (income: Income[] ): number => {
-      let totalIncome = 0
-      income.map( i => {
-        totalIncome = totalIncome + i.value
-      })
-
-      return totalIncome
     }
 
 
