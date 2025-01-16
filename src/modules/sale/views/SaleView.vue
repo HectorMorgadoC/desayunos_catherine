@@ -10,8 +10,12 @@
         <div>
           <ul class="menu rounded-box w-56">
             <li class="flex items-center"><RouterLink :to="{name: 'saleRegistration'}"  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Registrar venta </RouterLink></li>
-            <li class="flex items-center"><button  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar venta </button></li>
-            <li class="flex items-center"><button  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar ventas </button></li>
+            <li class="flex items-center"><button
+              @click="deleteSalesRecordById"
+              class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar venta </button></li>
+            <li class="flex items-center"><button
+              @click="deleteSalesRecordByDate"
+              class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar ventas </button></li>
           </ul>
         </div>
         <div>
@@ -49,6 +53,7 @@
                 <th>Cantidad</th>
                 <th>Metodo de pago</th>
                 <th>Total</th>
+                <th>Seleccionar</th>
               </tr>
             </thead>
             <tbody>
@@ -58,6 +63,12 @@
                 <td>{{ saleData.quantity }}</td>
                 <td>{{ saleData.payment_method }}</td>
                 <td>{{ saleData.total_price }} /s</td>
+                <td><input
+                  v-model="saleData.status"
+                  type="checkbox"
+                  :disabled="isOtherChecked(saleData)"
+                  /></td>
+
               </tr>
             </tbody>
           </table>
@@ -74,15 +85,20 @@
     import BrowserView from '@/views/layout/BrowserView.vue';
     import FooterView from '@/modules/views/layout/FooterView.vue';
     import { reactive, ref } from 'vue';
-    import { getSaleForDate } from '../actions/getSaleForDate-action';
+    import { getSaleForDate } from '../actions/getSaleByDate-action';
     import type { Sale } from '../interface/sale'
+    import { deleteSaleBydate, deleteSaleById } from '../actions/deleteSaleForId-action';
+    import { useToast } from 'vue-toastification';
+
 
     const dateSale = reactive({
         date: ''
     })
 
+    const toast = useToast()
     const sale = ref<Sale[]>([])
     const messageStatus = ref<boolean>(false)
+
     const dateRegister = async () => {
       try {
         const { data } = await getSaleForDate(dateSale.date)
@@ -98,10 +114,53 @@
     const messageCondition = (sale: Sale[]) => {
       if( sale.length <= 0 ) {
       messageStatus.value = true
-    } else {
-      messageStatus.value = false
+      } else {
+        messageStatus.value = false
+      }
     }
-    }
+
+    const deleteSalesRecordById = async() => {
+      const idSaleDelete = sale.value.find( s => s.status)
+      const id = idSaleDelete ? idSaleDelete.id : ''
+      if (id) {
+        try {
+          // esto hay que mejorar para que no realice redireccion ni muestre mns cuando exista un
+          const { data } = await deleteSaleById(id)
+          toast.success('Registro de venta eliminado',{
+            timeout: 3000,
+            onClose: () => {
+              window.location.reload()
+            }
+          })
+
+        } catch (error) {
+          toast.error('Error al eliminar registro')
+          throw new Error(`${error}`)
+        }
+      }
+      }
+      const deleteSalesRecordByDate = async() => {
+        const date = dateSale.date
+
+      try {
+        const { data } = await deleteSaleBydate(date)
+        toast.success('Registros de ventas eliminados',{
+          timeout: 3000,
+          onClose: () => {
+            window.location.reload()
+          }
+        })
+      } catch (error) {
+        throw new Error(`${error}`)
+      }
+
+
+
+      }
+
+    const isOtherChecked = (registerSale: Sale) => {
+      return sale.value.some(u => u.status && u !== registerSale);
+                };
 
 
 </script>

@@ -5,4 +5,5 @@ export interface Sale {
     quantity: number
     payment_method: string
     total_price: number
+    status?: boolean
 }
