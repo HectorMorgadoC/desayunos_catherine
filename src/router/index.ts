@@ -58,9 +58,15 @@ const router = createRouter({
           meta: { requiresAuth: true }
         },
         {
-          path: "/finance/income/registration",
+          path: "/finance/income/sale/registration",
           name: "saleRegistration",
           component: () => import('@/modules/sale/views/RegisterSale.vue'),
+          meta: { requiresAuth: true }
+        },
+        {
+          path: "/finance/income/credit",
+          name: "credit",
+          component: () => import('@/modules/credit/views/CreditView.vue'),
           meta: { requiresAuth: true }
         },
         {

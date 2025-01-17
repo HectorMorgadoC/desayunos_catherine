@@ -9,7 +9,7 @@
         <div>
           <ul class="menu rounded-box w-56">
             <li class="flex items-center"><RouterLink :to="{ name: 'sale' }"  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Ventas </RouterLink></li>
-            <li class="flex items-center"><button  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Creditos </button></li>
+            <li class="flex items-center"><RouterLink :to="{ name: 'credit' }" class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Creditos </RouterLink></li>
             <li class="flex items-center"><button  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar ingreso </button></li>
           </ul>
         </div>
