@@ -10,7 +10,7 @@
       <div class="flex gap-8 items-start">
         <div>
           <ul class="menu rounded-box w-56">
-            <li class="flex items-center"><RouterLink :to="{name: ''}"  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Registrar credito </RouterLink></li>
+            <li class="flex items-center"><RouterLink :to="{name: 'creditRegistration'}"  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Registrar credito </RouterLink></li>
             <li class="flex items-center"><button
 
               class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Cancelar credito </button></li>
