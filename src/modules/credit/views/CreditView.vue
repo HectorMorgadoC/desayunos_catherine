@@ -7,16 +7,20 @@
   />
   <div class="min-h-screen mx-auto p-4 mt-2">
     <div class="mb-8 p-6 rounded-lg">
-      <div class="flex gap-8 items-start">
+      <div
+      v-if="!stateCreditCancelled"
+      class="flex gap-8 items-start">
         <div>
           <ul class="menu rounded-box w-56">
             <li class="flex items-center"><RouterLink :to="{name: 'creditRegistration'}"  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Registrar credito </RouterLink></li>
-            <li class="flex items-center"><button
-
+            <li class="flex items-center">
+              <button
+              @click="RegisterCreditCancelled()"
               class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Cancelar credito </button></li>
-            <li class="flex items-center"><button
+            <li class="flex items-center"><RouterLink
+              :to="{ name: 'creditCancelled'}"
 
-              class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Creditos cancelados </button></li>
+              class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Creditos cancelados </RouterLink></li>
           </ul>
         </div>
         <div>
@@ -77,6 +81,28 @@
         </div>
         </div>
       </div>
+      <div v-else>
+        <div>
+          <p>Fecha de registro: {{ creditCancelled.registration_date }} </p>
+          <p>Fecha de pago: {{ creditCancelled.cancellation_date }} </p>
+          <p>Nombre: {{ creditCancelled.creditor_name }}</p>
+          <p>Producto: {{ creditCancelled.description_product }}</p>
+          <p>Total a pagar: {{ creditCancelled.total_price }}</p>
+          <select
+          v-model="selectPaymentMethod"
+          >
+            <option value=""
+            disabled selected
+            >Seleccione un metodo de pago</option>
+            <option
+            v-for="(p,index) in listPaymentMethod" :key="index"
+            :value="p.description" >{{ p.description }}</option>
+          </select>
+          <button
+          @click="deleteCreditRecord"
+          >Cancelar credito</button>
+        </div>
+      </div>
     </div>
   </div>
   <FooterView />
@@ -87,17 +113,32 @@
     import FooterView from '@/modules/views/layout/FooterView.vue';
     import { reactive, ref } from 'vue';
     import { useToast } from 'vue-toastification';
-    import type { Credit } from '../interface/credit';
+    import type { Credit, CreditCancelled } from '../interface/credit';
     import { getCreditByDate } from '../actions/getCreditByDate-action';
-
+    import { deleteCreditById } from '../actions/deleteCreditForId-action';
+    import { useLocalStorage } from '@vueuse/core';
+    import type { PaymentMethod } from '@/modules/menu/interface/menuData';
 
     const dateCredit = reactive({
         date: ''
     })
 
-    // const toast = useToast()
+    const toast = useToast()
     const credit = ref<Credit[]>([])
     const messageStatus = ref<boolean>(false)
+    const listPaymentMethod = useLocalStorage<PaymentMethod[]>('payment_method',[]).value
+    const selectPaymentMethod = ref<string>('')
+    const stateCreditCancelled = ref<boolean>(false)
+
+    const creditCancelled = ref<CreditCancelled>({
+        id: '',
+        registration_date: '',
+        cancellation_date: '',
+        description_product: '',
+        total_price: 0,
+        creditor_name: '',
+        payment_method: ''
+    })
 
     const dateRegister = async () => {
       try {
@@ -118,14 +159,38 @@
         messageStatus.value = false
       }
     }
-/*
-    const deleteSalesRecordById = async() => {
-      const idSaleDelete = credit.value.find( s => s.status)
-      const id = idSaleDelete ? idSaleDelete.id : ''
-      if (id) {
+
+
+    const RegisterCreditCancelled = () => {
+      const creditToCancel = credit.value.find( s => s.status)
+
+      if(creditToCancel) {
+        creditCancelled.value = {
+        id: creditToCancel.id,
+        registration_date: creditToCancel?.date,
+        cancellation_date: new Date().toISOString().split('T')[0],
+        description_product: creditToCancel?.description_product,
+        total_price: creditToCancel?.total_price,
+        creditor_name: creditToCancel?.creditor_name,
+      }
+
+      stateCreditCancelled.value = true
+
+      } else {
+        toast.error('Registro de credito no accinado')
+          throw new Error("Error en regsitro de acreditador: no existe")
+      }
+
+    }
+
+    const deleteCreditRecord = async() => {
+      creditCancelled.value.payment_method = selectPaymentMethod.value
+      stateCreditCancelled.value = true
+
         try {
           // esto hay que mejorar para que no realice redireccion ni muestre mns cuando exista un
-          const { data } = await deleteSaleById(id)
+          console.log(creditCancelled)
+          const { data } = await deleteCreditById(creditCancelled.value)
           toast.success('Registro de venta eliminado',{
             timeout: 3000,
             onClose: () => {
@@ -138,26 +203,8 @@
           throw new Error(`${error}`)
         }
       }
-      }
-      const deleteSalesRecordByDate = async() => {
-        const date = dateCredit.date
-
-      try {
-        const { data } = await deleteSaleBydate(date)
-        toast.success('Registros de ventas eliminados',{
-          timeout: 3000,
-          onClose: () => {
-            window.location.reload()
-          }
-        })
-      } catch (error) {
-        throw new Error(`${error}`)
-      }
 
 
-
-      }
-*/
     const isOtherChecked = (registerCredit: Credit) => {
       return credit.value.some(u => u.status && u !== registerCredit);
                 };

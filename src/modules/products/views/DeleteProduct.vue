@@ -30,9 +30,10 @@
             </ul>
 
           </div>
-          <ModalProduct
+          <ModalRegister
           :onSecondaryAction="() => deleteRegisterProduct(idProduct())"
           :message="'eliminar'"
+          class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"
           />
 
         </div>
@@ -49,9 +50,9 @@
   import { useLocalStorage } from '@vueuse/core';
   import { ref } from 'vue';
   import { useToast } from 'vue-toastification';
-  import ModalProduct  from '../components/ModalProduct.vue';
+  import ModalRegister  from '../components/ModalRegister.vue';
   import { deleteProduct } from '../actions/deleteProduct-action';
-import router from '@/router';
+  import router from '@/router';
 
   const listProduct: Product[] = useLocalStorage<Product[]>('product',[]).value
   const product = ref<string>('')
@@ -73,7 +74,6 @@ import router from '@/router';
     console.log( data )
     router.push({name: 'product'})
     toast.success(`Producto eliminado`)
-
 
   }
 

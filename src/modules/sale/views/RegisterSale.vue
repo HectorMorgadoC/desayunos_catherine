@@ -84,7 +84,7 @@
     import { useLocalStorage } from '@vueuse/core';
   	import type { Product, PaymentMethod } from '@/modules/menu/interface/menuData'
 
-
+  const totalPrice = ref<number>(0)
   const newSale: Sale = reactive({
         date: '',
         description_product:'',
@@ -95,14 +95,17 @@
 
   const ListProduct: Product[] = useLocalStorage('product',[]).value
   const ListPaymentMethod: PaymentMethod[] = useLocalStorage('payment_method',[]).value
-    const totalPrice = ref<number>(newSale.quantity)
+
 
 
   const registerSale = async() => {
     const toast = useToast()
 
     try {
+      newSale.total_price = totalPrice.value
+      console.log(newSale)
       const newRegisterSaleData = await RegistrationSale(newSale);
+
 
       if ('description' in newRegisterSaleData) {
         const { title, description } = newRegisterSaleData

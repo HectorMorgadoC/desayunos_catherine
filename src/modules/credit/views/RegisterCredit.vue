@@ -78,20 +78,22 @@
     import type { Credit } from '../interface/credit';
     import { RegistrationCredit } from '../actions/registerCredit-action';
 
-  const newCredit: Credit = reactive({
-    date: '',
-    description_product: '',
-    quantity: 0,
-    total_price: 0,
-    creditor_name: '',
-  })
+    const totalPrice = ref<number>(0)
+    const newCredit: Credit = reactive({
+      date: '',
+      description_product: '',
+      quantity: 0,
+      total_price: 0,
+      creditor_name: '',
+    })
 
   const ListProduct: Product[] = useLocalStorage('product',[]).value
-  const totalPrice = ref<number>(newCredit.quantity)
+
 
 
   const registerSale = async() => {
     const toast = useToast()
+    newCredit.total_price = totalPrice.value
 
     try {
       const newRegisterCreditData = await RegistrationCredit(newCredit);

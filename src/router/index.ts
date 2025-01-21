@@ -76,10 +76,22 @@ const router = createRouter({
           meta: { requiresAuth: true }
         },
         {
+          path: "/finance/income/credit/cancelled",
+          name: "creditCancelled",
+          component: () => import('@/modules/credit/views/CreditCancelledView.vue'),
+          meta: { requiresAuth: true }
+        },
+        {
           path: "/finance/expenditure",
           name: "expenditure",
           component: () => import('@/modules/expenditures/views/ExpenditureView.vue'),
           meta: { requiresAuth: true },
+        },
+        {
+          path: "/finance/expenditure/registration",
+          name: "expenditureRegistration",
+          component: () => import('@/modules/expenditures/views/RegisterExpenditure.vue'),
+          meta: { requireAuth: true}
         }
 
   ],

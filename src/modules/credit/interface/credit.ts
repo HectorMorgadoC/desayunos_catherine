@@ -11,11 +11,11 @@ export interface Credit {
 
 export interface CreditCancelled {
 
-      id: string
+      id?: string
       registration_date: string
       cancellation_date: string
       description_product: string
       total_price: number,
       creditor_name: string,
-      payment_method: string
+      payment_method?: string
 }

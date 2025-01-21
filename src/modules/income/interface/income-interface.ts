@@ -3,4 +3,5 @@ export interface Income {
   income_type: string
   value: number
   date: string,
+  status?: boolean
 }

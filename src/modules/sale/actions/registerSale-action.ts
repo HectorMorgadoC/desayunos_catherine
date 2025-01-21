@@ -44,7 +44,7 @@ export const RegistrationSale = async (
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        timeout: 10000
+        timeout: 30000
       },
     )
 

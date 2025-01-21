@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 import { useToast } from "vue-toastification";
 
 
-export const getCreditByDate = async(date: string) => {
+export const deleteIncomeById = async(id: string) => {
 
   const token = useLocalStorage('token', null).value
 
@@ -19,7 +19,7 @@ export const getCreditByDate = async(date: string) => {
 
   try {
 
-    const { data } = await apiFinansas.get(`finance/income/credit/${date}`,
+    const { data } = await apiFinansas.delete(`/finance/income/${id}`,
       {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -36,9 +36,9 @@ export const getCreditByDate = async(date: string) => {
 
       if (error.response?.status === 400) {
         const toast = useToast()
-        toast.error("Error de registro de producto")
+        toast.error("Error al eliminar venta")
         return {
-          message: 'Error data register product',
+          message: 'Delete data register sale',
           status: 400
         }
       }
@@ -61,16 +61,17 @@ export const getCreditByDate = async(date: string) => {
     }
 
     // Error general
-    console.error('Error al registrar credito:', error)
+    console.error('Error al eliminar venta:', error)
     return {
-      message: 'No se pudo realizar la peticion de los creditos',
+      message: 'No se pudo eliminarla venta',
       status: 500
     }
   }
   }
 
 
-  export const getCreditCancelledByDate = async(date: string) => {
+
+  export const deleteSaleBydate = async(date: string) => {
 
     const token = useLocalStorage('token', null).value
 
@@ -84,7 +85,7 @@ export const getCreditByDate = async(date: string) => {
 
     try {
 
-      const { data } = await apiFinansas.get(`finance/income/credit/cancelled/${date}`,
+      const { data } = await apiFinansas.delete(`/finance/income/sale/date/${date}`,
         {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -101,9 +102,9 @@ export const getCreditByDate = async(date: string) => {
 
         if (error.response?.status === 400) {
           const toast = useToast()
-          toast.error("Error de registro de producto")
+          toast.error("Error al eliminar venta")
           return {
-            message: 'Error data register product',
+            message: 'Delete data register sale',
             status: 400
           }
         }
@@ -126,13 +127,11 @@ export const getCreditByDate = async(date: string) => {
       }
 
       // Error general
-      console.error('Error al registrar credito cancelado:', error)
+      console.error('Error al eliminar venta:', error)
       return {
-        message: 'No se pudo realizar la peticion de los creditos',
+        message: 'No se pudo eliminarla venta',
         status: 500
       }
     }
     }
-
-
 

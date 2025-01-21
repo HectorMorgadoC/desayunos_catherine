@@ -13,7 +13,7 @@
             v-model="product"
             @change="dataProduct"
             >
-              <option value="" disabled selected>Seleccione un producto</option>
+              <option value="" >Seleccione un producto</option>
               <option
               v-for="(product, index) in listProduct "
               :key="index"
