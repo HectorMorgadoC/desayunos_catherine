@@ -15,7 +15,7 @@
         </div>
         <div>
           <h2 class="text-lg">Saldo</h2>
-          <p class="text-6xl">{{ balance }} /s</p>
+          <p class="text-6xl">{{ viewBalance }} /s</p>
         </div>
       </div>
     </div>
@@ -26,16 +26,17 @@
 </template>
 
 <script setup lang="ts">
-import BrowserView from '@/views/layout/BrowserView.vue';
+import BrowserView from '@/modules/views/layout/BrowserView.vue';
 import FooterView from '@/modules/views/layout/FooterView.vue';
 import { useLocalStorage } from '@vueuse/core';
 import { dataMenu } from '../actions/menuAction';
 import type { Product,PaymentMethod } from '../interface/menuData';
 import router from '@/router';
 import { RouterView } from 'vue-router';
-import { ref } from 'vue'
 
 
+
+const viewBalance = useLocalStorage('balance',0)
 
 const listMenu = async() => {
       const listData = await dataMenu()
@@ -45,12 +46,12 @@ const listMenu = async() => {
         throw new Error(`Error request menu: ${listData.message}`)
       }
 
-      const product = useLocalStorage<Product[]>('product',listData.product).value
+      const product = useLocalStorage<Product[]>('product',listData.product)
       const payment_method = useLocalStorage<PaymentMethod[]>('payment_method', listData.payment_method)
-      const balance = useLocalStorage<number>('balance',listData.balance)
+      const balance = useLocalStorage('balance',listData.balance)
 
+      viewBalance.value = listData.balance
 
-      console.log('preuba')
       return {
         product,
         payment_method,
@@ -58,8 +59,7 @@ const listMenu = async() => {
       }
 }
 
-const balance = ref<number>(useLocalStorage<number>('balance', 0).value)
-
 listMenu()
+
 
 </script>

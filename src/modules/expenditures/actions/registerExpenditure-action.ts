@@ -19,7 +19,6 @@ export const registrationExpenditure = async(newExpenditure: Expenditure) => {
   }
 
   try {
-
     const { data } = await apiFinansas.post(`finance/expenditure`,
       {
         date: newExpenditure.date,

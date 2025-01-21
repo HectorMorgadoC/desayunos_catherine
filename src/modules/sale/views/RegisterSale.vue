@@ -75,7 +75,7 @@
   </template>
 
   <script setup lang="ts">
-    import BrowserView from '@/views/layout/BrowserView.vue';
+    import BrowserView from '@/modules/views/layout/BrowserView.vue';
     import FooterView from '@/modules/views/layout/FooterView.vue';
     import { reactive, ref, watch } from 'vue';
     import { RegistrationSale } from '../actions/registerSale-action';
@@ -95,6 +95,7 @@
 
   const ListProduct: Product[] = useLocalStorage('product',[]).value
   const ListPaymentMethod: PaymentMethod[] = useLocalStorage('payment_method',[]).value
+  const balance = useLocalStorage('balance',0)
 
 
 
@@ -108,6 +109,7 @@
 
 
       if ('description' in newRegisterSaleData) {
+        balance.value = balance.value + newSale.total_price
         const { title, description } = newRegisterSaleData
         newSale.date =  ''
         newSale.description_product =''
@@ -124,7 +126,6 @@
     }
 
   }
-
 
   watch(
   () => newSale.quantity,

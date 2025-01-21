@@ -1,5 +1,5 @@
 <template>
-  <header class="p-5">
+  <header class="p-5 w-screen h-100">
       <ul
       class="mt-8 mr-5 space-y-2 md:flex md:space-y-0 md:flex-row md:items-center md:space-x-10 md:mt-0 transition-colors md:justify-end"
     >

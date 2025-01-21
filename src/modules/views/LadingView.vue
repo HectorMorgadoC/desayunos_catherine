@@ -12,7 +12,6 @@
     import { apiFinansas } from '@/api/api_finansas'
     import { useToast } from 'vue-toastification'
     import { ref } from 'vue'
-    import { useLocalStorage } from '@vueuse/core'
 
     interface Connection {
       connection: string
@@ -21,9 +20,7 @@
     const checkConnection = ref(false)
     const toast = useToast()
 
-    const removeStorage = () => {
-              window.localStorage.removeItem('token')
-            }
+
 
     const stableConnect = async () => {
 
@@ -39,6 +36,5 @@
     }
 
     stableConnect()
-    removeStorage()
 
 </script>

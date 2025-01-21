@@ -49,15 +49,17 @@
   </template>
 
   <script setup lang="ts">
-    import BrowserView from '@/views/layout/BrowserView.vue';
+    import BrowserView from '@/modules/views/layout/BrowserView.vue';
     import FooterView from '@/modules/views/layout/FooterView.vue';
     import { reactive } from 'vue';
     import { useToast } from 'vue-toastification'
     import type { Expenditure } from '../interface/expenditure';
     import { registrationExpenditure } from '../actions/registerExpenditure-action';
+    import { useLocalStorage } from '@vueuse/core';
 
 
   const toast = useToast()
+  const balance = useLocalStorage('balance',0)
 
   const newExpenditure: Expenditure = reactive({
         date: '',
@@ -67,18 +69,22 @@
 
   const registerExpenditure = async() => {
 
+
+    if( balance.value < newExpenditure.value || balance.value <= 0 ) {
+      toast.warning('Saldo insuficiente')
+      return
+    }
+
     try {
+      const { data } = await registrationExpenditure(newExpenditure);
 
-      console.log(newExpenditure)
-      const newRegisterExpenditureData = await registrationExpenditure(newExpenditure);
+      if (data.title) {
 
-
-      if ('description' in newRegisterExpenditureData) {
-        const { description } = newRegisterExpenditureData
+        balance.value = balance.value - newExpenditure.value
         newExpenditure.date =  ''
         newExpenditure.description =''
         newExpenditure.value = 0
-        toast.success(`${description}`)
+        toast.success(`${data.title}  ${data.description}`)
       } else {
         toast.error('Nuevo gasto no registrado')
       }

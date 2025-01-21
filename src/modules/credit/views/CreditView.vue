@@ -109,7 +109,7 @@
 </template>
 
 <script setup lang="ts">
-    import BrowserView from '@/views/layout/BrowserView.vue';
+    import BrowserView from '@/modules/views/layout/BrowserView.vue';
     import FooterView from '@/modules/views/layout/FooterView.vue';
     import { reactive, ref } from 'vue';
     import { useToast } from 'vue-toastification';
@@ -129,6 +129,7 @@
     const listPaymentMethod = useLocalStorage<PaymentMethod[]>('payment_method',[]).value
     const selectPaymentMethod = ref<string>('')
     const stateCreditCancelled = ref<boolean>(false)
+    const balance = useLocalStorage('balance',0)
 
     const creditCancelled = ref<CreditCancelled>({
         id: '',
@@ -170,9 +171,10 @@
         registration_date: creditToCancel?.date,
         cancellation_date: new Date().toISOString().split('T')[0],
         description_product: creditToCancel?.description_product,
-        total_price: creditToCancel?.total_price,
-        creditor_name: creditToCancel?.creditor_name,
+        total_price: creditToCancel.total_price,
+        creditor_name: creditToCancel.creditor_name,
       }
+
 
       stateCreditCancelled.value = true
 
@@ -191,6 +193,7 @@
           // esto hay que mejorar para que no realice redireccion ni muestre mns cuando exista un
           console.log(creditCancelled)
           const { data } = await deleteCreditById(creditCancelled.value)
+          balance.value = balance.value + creditCancelled.value.total_price
           toast.success('Registro de venta eliminado',{
             timeout: 3000,
             onClose: () => {

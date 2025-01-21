@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-  import BrowserView from '@/views/layout/BrowserView.vue';
+  import BrowserView from '@/modules/views/layout/BrowserView.vue';
   import FooterView from '@/modules/views/layout/FooterView.vue';
 import { reactive } from 'vue';
 import { RegistrationProduct } from '../actions/createProduct-action';
