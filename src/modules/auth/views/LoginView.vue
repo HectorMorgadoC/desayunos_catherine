@@ -9,7 +9,9 @@
           <div class="shadow-lg px-8 py-10 border-lg">
             <form @submit.prevent="onLogin" class="rounded-lg space-y-2 px-10">
             <div>
-              <label for="usuario" class="block text-lg font-medium text-orange-600">Usuario</label>
+              <label
+              for="usuario"
+              class="block text-lg font-medium text-orange-600">Usuario</label>
               <input
                 v-model="myForm.username"
                 ref="userNameInputRef"
@@ -34,7 +36,6 @@
               <button
                 type="submit"
                 value="Ingresar"
-
                 class="w-full h-10 text-center bg-yellow-400  rounded-lg text-white rounded-lg hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"
               >Acesso</button>
             </div>
