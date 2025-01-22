@@ -5,9 +5,11 @@
     >
       <li
       v-if="connection"
-      class="flex items-start justify-center px-2 py-2 border border-solid border-orange-600 rounded-lg text-orange-600 hover:bg-orange-300 hover:text-white hover:border-transparent duration-400 cursor-pointer">
-      <RouterLink :to="{name: 'login'}" class="text-xs">Iniciar seccion</RouterLink></li>
-      <p v-else>{{ message }}</p>
+      class="py-1 px-2 bg-yellow-400  rounded-lg text-white hover:bg-orange-300 hover:text-white hover:border-transparent duration-400 cursor-pointer hover:shadow">
+      <RouterLink :to="{name: 'login'}" class="text-sm">Iniciar seccion</RouterLink></li>
+      <p
+      class="text-lg text-red-500"
+      v-else>{{ message }}</p>
     </ul>
     </header>
 </template>
