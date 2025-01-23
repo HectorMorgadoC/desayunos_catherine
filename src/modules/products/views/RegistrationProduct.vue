@@ -4,9 +4,7 @@
         :connection="false"
         :message="'Registrar producto'"
         />
-    <div class="min-h-screen mx-auto p-4 mt-2">
-        <div class="mb-8 p-6 rounded-lg">
-            <div class="flex items-start justify-center">
+            <div class="flex items-start justify-center my-8">
                 <div class="px-8 py-10 border-lg">
                         <div class="flex-grow">
                             <form
@@ -42,11 +40,8 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
             </div>
-        </div>
-    </div>
     <FooterView />
 </template>
 

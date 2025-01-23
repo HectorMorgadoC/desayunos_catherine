@@ -4,18 +4,18 @@
     :connection="false"
     :message="'Eliminar producto'"
     />
-    <div class="min-h-screen mx-auto p-4 mt-2">
-      <div class="p-6 rounded-lg">
-        <div class="flex flex-col gap-4 items-center">
-          <div class="shadow-lg px-6 py-6 border-lg">
-            <div>
+        <div class="flex flex-col justify-center h-64 my-12">
+          <div class="flex flex-col gap-4 items-center">
+            <div
+            class="border-lg"
+            >
             <select
-            class="rounded-lg w-56 px-6 py-3 bg-yellow-400 text-start flex items-center justify-center text-white mb-3 hover:bg-orange-300 hover:text-white hover:border-transparent duration-400 cursor-pointer hover:shadow"
+            class="background_all  mb-2 w-full px-2 py-2 border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500"
             v-model="product"
             >
               <option
               class="hover:bg-orange-300 hover:text-white"
-              disabled selected>Seleccione un producto</option>
+              value="" >Seleccione un producto</option>
               <option
               v-for="(product, index) in listProduct "
               :key="index"
@@ -24,8 +24,6 @@
               {{ product.description }}
               </option>
             </select>
-          </div>
-          <div>
             <ul class="w-full">
               <li class="flex items-center">
                 <ModalRegister
@@ -35,14 +33,12 @@
           />
               </li>
             </ul>
-
           </div>
           </div>
 
 
 
-        </div>
-      </div>
+
 
     </div>
     <FooterView />

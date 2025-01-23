@@ -3,10 +3,8 @@
 :connection = 'false'
 :message = "'Ingreso de usuario'" />
 <div class="max-w-6xl h-full mx-auto p-4 mt-8">
-    <div class="mb-8 p-6 rounded-lg">
-      <div class="flex gap-8 items-center">
-        <div class="flex-grow">
-          <div class="shadow-lg px-8 py-10 border-lg">
+    <div class="flex items-center justify-center">
+          <div class="px-6 py-10 border-lg">
             <form @submit.prevent="onLogin" class="rounded-lg space-y-2 px-10">
             <div>
               <label
@@ -41,12 +39,6 @@
             </div>
           </form>
           </div>
-
-        </div>
-        <ImageBanner />
-      </div>
-      <div class="h-full p-6">
-      </div>
     </div>
   </div>
     <FooterView />
@@ -54,7 +46,6 @@
 <script setup lang="ts">
 import FooterView from '@/modules/views/layout/FooterView.vue';
 import BrowserView from '@/modules/views/layout/BrowserView.vue';
-import ImageBanner from '@/modules/image/ImageBanner.vue';
 import { useAuthStore } from '../store/auth.store';
 import { useToast } from 'vue-toastification';
 import { reactive, ref } from 'vue';

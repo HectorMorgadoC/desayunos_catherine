@@ -3,7 +3,7 @@
     <!-- Botón para abrir el modal -->
     <button
       @click="openModal"
-      
+
     >
     {{ message }}
     </button>
@@ -11,27 +11,27 @@
     <!-- Modal -->
     <div
       v-if="isModalOpen"
-      class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50"
+      class="fixed inset-0 flex items-center justify-center bg-opacity-50"
     >
-      <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold text-gray-800">
+      <div class="bg-orange-200 rounded-lg shadow-lg p-6 w-96">
+        <h2 class="text-lg font-semibold text-red-500">
           ¿Desea eliminar este elemento?
         </h2>
-        <p class="text-sm text-gray-600 mt-2">
+        <p class="text-sm text-red-500 mt-2">
           Esta acción no se puede deshacer.
         </p>
         <div class="flex justify-end space-x-3 mt-4">
           <!-- Botón Cancelar -->
           <button
             @click="closeModal"
-            class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
+            class="w-24 bg-yellow-400 text-white px-4 py-2 rounded hover:bg-orange-300 hover:shadow-lg"
           >
             Cancelar
           </button>
           <!-- Botón Aceptar -->
           <button
             @click="onSecondaryAction"
-            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            class="w-24 bg-yellow-400 text-white px-4 py-2 rounded hover:bg-red-600 hover:shadow-lg"
           >
             Aceptar
           </button>

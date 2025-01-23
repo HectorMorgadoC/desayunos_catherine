@@ -3,10 +3,8 @@
   :connection="false"
   :message="'Menu'"
   />
-  <div class="min-h-screen mx-auto p-4 mt-2">
-    <div class="mb-8 p-6 rounded-lg">
-      <div class="flex gap-8 items-start">
-        <div class="shadow p-3">
+      <div class="flex items-center justify-center">
+        <div class="p-3">
           <div>
             <ul class="menu rounded-box w-56">
             <li class="flex items-center">
@@ -28,11 +26,9 @@
             <p class="text-8xl text-orange-500">{{ viewBalance }}/s</p>
           </div>
         </div>
-        <BannerProduct/>
       </div>
-    </div>
-    <RouterView />
-  </div>
+
+
   <FooterView />
 
 </template>
