@@ -3,51 +3,54 @@
   :connection="false"
   :message="'Ingresos'"
   />
-  <div class="max-w-6xl h-full">
-      <div class="flex-col gap-14 items-center justify-center">
-        <div class="flex items-center justify-center">
-          <ul class="rounded-box w-56 flex gap-4">
+  <div class="mt-8">
+        <div class="flex justify-center">
+          <ul class="flex justify-center gap-4">
             <li class="flex items-center" >
               <RouterLink :to="{ name: 'sale' }"
-            class="w-32 p-2 text-center mt-4 bg-yellow-400  rounded-lg text-white rounded-lg hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"> Ventas </RouterLink></li>
+                class="w-full rounded-lg px-4 py-2 bg-yellow-400 text-center flex justify-center text-white hover:bg-orange-300 hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"> Ventas </RouterLink></li>
             <li
             class="flex items-center"
             >
             <RouterLink
             :to="{ name: 'credit' }"
-            class="w-32 p-2 text-center mt-4 bg-yellow-400  rounded-lg text-white rounded-lg hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"> Creditos </RouterLink></li>
+            class="w-full rounded-lg px-4 py-2 bg-yellow-400 text-center flex justify-center text-white  hover:bg-orange-300  hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"> Creditos </RouterLink></li>
             <li
             class="flex items-center"><button
               @click="deleteIncomeRecordById"
-              class="w-32 p-2  text-center mt-4 bg-yellow-400  rounded-lg text-white rounded-lg hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"> Eliminar ingreso </button></li>
+              class="w-full rounded-lg px-4 py-2 bg-yellow-400 text-center flex justify-center text-white  hover:bg-orange-300   hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"> Eliminar </button></li>
           </ul>
         </div>
+
         <div>
           <div>
-
             <form @submit.prevent="dateRegister">
-              <label class="block text-lg font-medium text-orange-600 mb-2">
-              Ingrese fecha
-              </label>
-              <div class="flex items-center gap-4 mb-2">
+              <div class="flex justify-center gap-4 my-6">
                 <input
                 type="date"
-                class="background_all h-1/3 w-full px-2 py-2 border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500"
+                class="background_all w-48 px-2 py-2 border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500"
                 v-model="dateIncome.date"
                 />
 
                 <button
-                class="w-full h-10 text-center bg-yellow-400  rounded-lg text-white rounded-lg hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"
+                class="w-48 h-10 text-center bg-yellow-400  rounded-lg text-white rounded-lg hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"
                 >consultar</button>
               </div>
-
             </form>
-
           </div>
-          <div class="overflow-x-auto">
-              <p v-if="messageStatus">No hay registro con la fecha</p>
-              <table v-else
-              class="w-64 bg-white border border-gray-300 shadow-md rounded-lg">
+          <div class="flex flex-col item-center justify-center mb-48">
+            <div
+            class="flex justify-center"
+            >
+              <p
+              class="text-2xl text-orange-400"
+              v-if="messageStatus">No hay registro con la fecha</p>
+              <div
+
+              v-else-if="!messageStatus && income.length > 0"
+              >
+                <table
+              class="w-full bg-white border border-gray-300 shadow-md rounded-lg">
             <thead>
               <tr
               class="bg-yellow-400 text-white"
@@ -86,17 +89,24 @@
                   :disabled="isOtherChecked(incomeData)"
                   /></td>
               </tr>
-              <tr>
                 <td>
-                  {{ totalIncome }} /s
+
                 </td>
-              </tr>
+
             </tbody>
           </table>
+              </div>
+            </div>
+            <div class="flex justify-center mt-8 text-2xl text-orange-400">
+              <p
+              v-if="!messageStatus && income.length > 0"
+              >
+                Ingreso del dia: {{ totalIncome }} /s
+          </p >
+            </div>
+        </div>
+        </div>
 
-        </div>
-        </div>
-      </div>
 
   </div>
   <FooterView />
