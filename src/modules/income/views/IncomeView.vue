@@ -3,9 +3,9 @@
   :connection="false"
   :message="'Ingresos'"
   />
-  <div class="mt-8">
-        <div class="flex justify-center">
-          <ul class="flex justify-center gap-4">
+  <div class="mt-8 mx-12 flex flex-row justify-center gap-64">
+        <div class="flex justify-center items-start">
+          <ul class="w-32 pl-6 flex flex-col justify-center gap-4">
             <li class="flex items-center" >
               <RouterLink :to="{ name: 'sale' }"
                 class="w-full rounded-lg px-4 py-2 bg-yellow-400 text-center flex justify-center text-white hover:bg-orange-300 hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"> Ventas </RouterLink></li>
@@ -22,10 +22,10 @@
           </ul>
         </div>
 
-        <div>
-          <div>
+        <div class="mr-32 pr-16">
+          <div >
             <form @submit.prevent="dateRegister">
-              <div class="flex justify-center gap-4 my-6">
+              <div class="flex justify-center items-start gap-4 mb-8">
                 <input
                 type="date"
                 class="background_all w-48 px-2 py-2 border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500"
@@ -50,7 +50,7 @@
               v-else-if="!messageStatus && income.length > 0"
               >
                 <table
-              class="w-full bg-white border border-gray-300 shadow-md rounded-lg">
+              class="w-full mt-6 bg-white border border-gray-300 shadow-md rounded-lg">
             <thead>
               <tr
               class="bg-yellow-400 text-white"

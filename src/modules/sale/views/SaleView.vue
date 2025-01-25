@@ -4,80 +4,119 @@
   :connection="false"
   :message="'Ventas'"
   />
-  <div class="min-h-screen mx-auto p-4 mt-2">
-    <div class="mb-8 p-6 rounded-lg">
-      <div class="flex gap-8 items-start">
-        <div>
-          <ul class="menu rounded-box w-56">
-            <li class="flex items-center"><RouterLink :to="{name: 'saleRegistration'}"  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Registrar venta </RouterLink></li>
-            <li class="flex items-center"><button
-              @click="deleteSalesRecordById"
-              class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar venta </button></li>
-            <li class="flex items-center"><button
-              @click="deleteSalesRecordByDate"
-              class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Eliminar ventas </button></li>
-          </ul>
+    <div class="mt-8 mx-12 flex flex-row justify-center gap-32">
+        <div class="flex justify-center items-start">
+            <ul class="w-32 pl-6 flex flex-col justify-center gap-4">
+                <li class="flex items-center">
+                    <RouterLink
+                        :to="{name: 'saleRegistration'}"
+                        class="w-full rounded-lg px-4 py-2 bg-yellow-400 text-center flex justify-center text-white hover:bg-orange-300 hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"> Registrar venta </RouterLink>
+                </li>
+                <li class="flex items-center">
+                    <button
+                        @click="deleteSalesRecordById"
+                        class="w-full rounded-lg px-4 py-2 bg-yellow-400 text-center flex justify-center text-white hover:bg-orange-300 hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"> Eliminar venta </button>
+                </li>
+                <li class="flex items-center">
+                    <button
+                        @click="deleteSalesRecordByDate"
+                        class="w-full rounded-lg px-4 py-2 bg-yellow-400 text-center flex justify-center text-white hover:bg-orange-300 hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"> Eliminar ventas </button>
+                </li>
+            </ul>
         </div>
-        <div>
-          <div>
 
-            <form @submit.prevent="dateRegister">
-              <label class="form-control w-full max-w-xs">
-              <div class="label">
-                <span class="label-text text-orange-300">Ingrese la fecha</span>
-              </div>
-              </label>
-              <div class="flex">
-                <input
-                type="date"
-                placeholder="Type here"
-                class="background_all px-2 py-1 text-sm border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500 "
-                v-model="dateSale.date"
-                />
+        <div class="mr-32 pr-16">
+            <div>
+                <form @submit.prevent="dateRegister">
+                    <div class="flex justify-center items-start gap-4 mb-8">
+                        <input
+                            type="date"
+                            placeholder="Type here"
+                            class="background_all w-48 px-2 py-2 border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500 "
+                            v-model="dateSale.date"
+                        />
 
-                <button
-                class="ml-5 py-1 px-2 text-sm border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500"
-                >consultar</button>
-              </div>
-
-            </form>
-
-          </div>
-          <div class="overflow-x-auto">
-              <p v-if="messageStatus">No hay registro con la fecha</p>
-              <table v-else class="table table-zebra">
-            <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Metodo de pago</th>
-                <th>Total</th>
-                <th>Seleccionar</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="( saleData, index ) in sale " :key="index">
-                <td>{{ saleData.date }}</td>
-                <td>{{ saleData.description_product }}</td>
-                <td>{{ saleData.quantity }}</td>
-                <td>{{ saleData.payment_method }}</td>
-                <td>{{ saleData.total_price }} /s</td>
-                <td><input
-                  v-model="saleData.status"
-                  type="checkbox"
-                  :disabled="isOtherChecked(saleData)"
-                  /></td>
-
-              </tr>
-            </tbody>
-          </table>
-
+                        <button
+                            class="w-48 h-10 text-center bg-yellow-400  rounded-lg text-white rounded-lg hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"
+                        >consultar</button>
+                    </div>
+                </form>
+            </div>
         </div>
+
+        <div class="flex flex-col item-center justify-center mb-48">
+            <div
+                class="flex justify-center"
+            >
+                <p
+                    class="text-2xl text-orange-400"
+                    v-if="messageStatus">No hay registro con la fecha</p>
+                <div
+                    v-else-if="!messageStatus && sale.length > 0"
+                >
+                    <table
+                        class="w-full mt-6 bg-white border border-gray-300 shadow-md rounded-lg">
+                        <thead>
+                            <tr
+                                class="bg-yellow-400 text-white"
+                            >
+                                <th
+                                    class="py-2 px-4 text-left"
+                                >Fecha</th>
+                                <th
+                                    class="py-2 px-4 text-left"
+                                >Producto</th>
+                                <th
+                                    class="py-2 px-4 text-left"
+                                >Cantidad</th>
+                                <th
+                                    class="py-2 px-4 text-left"
+                                >Metodo de pago</th>
+                                <th
+                                    class="py-2 px-4 text-left"
+                                >Total</th>
+                                <th
+                                    class="py-2 px-4 text-left"
+                                >Seleccionar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                v-for="( saleData, index ) in sale "
+                                :key="index"
+                                :class="{'bg-yellow-100': index % 2 === 0}"
+                            >
+                                <td
+                                    class="px-4 py-2 text-red-500"
+                                >{{ saleData.date }}</td>
+                                <td
+                                    class="px-4 py-2 text-red-500"
+                                >{{ saleData.description_product }}</td>
+                                <td
+                                    class="px-4 py-2 text-red-500"
+                                >{{ saleData.quantity }}</td>
+                                <td
+                                    class="px-4 py-2 text-red-500"
+                                >{{ saleData.payment_method }}</td>
+                                <td
+                                    class="px-4 py-2 text-red-500"
+                                >{{ saleData.total_price }} /s</td>
+                                <td>
+                                    <input
+                                        v-model="saleData.status"
+                                        type="checkbox"
+                                        :disabled="isOtherChecked(saleData)"
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+
+
   <FooterView />
 </template>
 
