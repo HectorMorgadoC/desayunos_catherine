@@ -1,5 +1,6 @@
 <template>
-<BrowserView
+  <div class="flex flex-col min-h-screen">
+    <BrowserView
 :connection = 'false'
 :message = "'Ingreso de usuario'" />
 <div class="max-w-6xl h-full mx-auto p-4 mt-8">
@@ -42,6 +43,8 @@
     </div>
   </div>
     <FooterView />
+  </div>
+
 </template>
 <script setup lang="ts">
 import FooterView from '@/modules/views/layout/FooterView.vue';

@@ -1,5 +1,6 @@
 <template>
-  <BrowserView
+  <div class="">
+    <BrowserView
   :connection="false"
   :message="'Productos'"
   />
@@ -46,6 +47,8 @@
         </div>
         </div>
   <FooterView />
+  </div>
+
 </template>
 
 <script setup lang="ts">

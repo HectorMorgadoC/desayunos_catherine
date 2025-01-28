@@ -1,6 +1,6 @@
 <template>
-
-  <BrowserView
+    <div class="flex flex-col min-h-screen">
+      <BrowserView
     :connection="false"
     :message="'Eliminar producto'"
     />
@@ -35,13 +35,10 @@
             </ul>
           </div>
           </div>
-
-
-
-
-
     </div>
     <FooterView />
+    </div>
+
   </template>
 
 <script setup lang="ts">

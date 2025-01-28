@@ -1,73 +1,101 @@
-
-
 <template>
-  <BrowserView
+  <div class="flex flex-col min-h-screen">
+    <BrowserView
   :connection="false"
   :message="'Creditos'"
   />
-  <div class="min-h-screen mx-auto p-4 mt-2">
-    <div class="mb-8 p-6 rounded-lg">
+  <div >
       <div
       v-if="!stateCreditCancelled"
-      class="flex gap-8 items-start">
+      class="flex flex-row justify-center gap-16 my-8">
         <div>
-          <ul class="menu rounded-box w-56">
-            <li class="flex items-center"><RouterLink :to="{name: 'creditRegistration'}"  class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Registrar credito </RouterLink></li>
+          <ul class="rounded-box w-56">
+            <li class="flex items-center">
+              <RouterLink
+              :to="{name: 'creditRegistration'}"
+              class="w-full rounded-lg px-6 py-2 bg-yellow-400 text-center flex items-center justify-center text-white mb-3 hover:bg-orange-300 hover:text-white hover:border-transparent duration-400 cursor-pointer hover:shadow"> Registrar credito </RouterLink></li>
             <li class="flex items-center">
               <button
               @click="RegisterCreditCancelled()"
-              class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Cancelar credito </button></li>
+              class="w-full rounded-lg px-6 py-2 bg-yellow-400 text-center flex items-center justify-center text-white mb-3 hover:bg-orange-300 hover:text-white hover:border-transparent duration-400 cursor-pointer hover:shadow"> Cancelar credito </button></li>
             <li class="flex items-center"><RouterLink
               :to="{ name: 'creditCancelled'}"
 
-              class="w-full px-6 py-1 text-white bg-orange-300 mb-2 text-center flex items-center justify-center"> Creditos cancelados </RouterLink></li>
+              class="w-full rounded-lg px-6 py-2 bg-yellow-400 text-center flex items-center justify-center text-white mb-3 hover:bg-orange-300 hover:text-white hover:border-transparent duration-400 cursor-pointer hover:shadow"> Creditos cancelados </RouterLink></li>
           </ul>
         </div>
-        <div>
-          <div>
 
+        <div class="mr-32 pr-16">
+          <div>
             <form @submit.prevent="dateRegister">
-              <label class="form-control w-full max-w-xs">
-              <div class="label">
-                <span class="label-text text-orange-300">Ingrese la fecha</span>
-              </div>
-              </label>
-              <div class="flex">
+              <div class="flex justify-center items-start gap-4 mb-8">
                 <input
                 type="date"
-                placeholder="Type here"
-                class="background_all px-2 py-1 text-sm border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500 "
+                class="background_all w-48 px-2 py-2 border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500"
                 v-model="dateCredit.date"
                 />
 
                 <button
-                class="ml-5 py-1 px-2 text-sm border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500"
+                class="w-48 h-10 text-center bg-yellow-400  rounded-lg text-white rounded-lg hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"
                 >consultar</button>
               </div>
 
             </form>
 
           </div>
-          <div class="overflow-x-auto">
-              <p v-if="messageStatus">No hay registro con la fecha</p>
-              <table v-else class="table table-zebra">
+          <div class="flex flex-col item-center justify-center mb-48">
+            <div
+            class="flex justify-center"
+            >
+            <p
+            class="text-2xl text-orange-400"
+            v-if="messageStatus">No hay registro con la fecha</p>
+              <table v-else-if="!messageStatus && credit.length > 0"
+              class="w-full mt-6 bg-white border border-gray-300 shadow-md rounded-lg">
             <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Nombre de acreditador</th>
-                <th>Total</th>
-                <th>Seleccionar</th>
+              <tr
+              class="bg-yellow-400 text-white"
+              >
+                <th
+                class="py-2 px-4 text-left"
+                >Fecha</th>
+                <th
+                class="py-2 px-4 text-left"
+                >Producto</th>
+                <th
+                class="py-2 px-4 text-left"
+                >Cantidad</th>
+                <th
+                class="py-2 px-4 text-left"
+                >Nombre de acreditador</th>
+                <th
+                class="py-2 px-4 text-left"
+                >Total</th>
+                <th
+                class="py-2 px-4 text-left"
+                >Seleccionar</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="( saleCredit, index ) in credit " :key="index">
-                <td>{{ saleCredit.date }}</td>
-                <td>{{ saleCredit.description_product }}</td>
-                <td>{{ saleCredit.quantity }}</td>
-                <td>{{ saleCredit.creditor_name }}</td>
-                <td>{{ saleCredit.total_price }} /s</td>
+              <tr v-for="( saleCredit, index ) in credit "
+              :key="index"
+              :class="{'bg-yellow-100': index % 2 === 0}"
+              >
+                <td
+                class="px-4 py-2 text-red-500"
+                >{{ saleCredit.date }}</td>
+                <td
+                class="px-4 py-2 text-red-500"
+                >{{ saleCredit.description_product }}</td>
+                <td
+                class="px-4 py-2 text-red-500"
+                >{{ saleCredit.quantity }}</td>
+                <td
+                class="px-4 py-2 text-red-500"
+                >{{ saleCredit.creditor_name }}</td>
+                <td
+                class="px-4 py-2 text-red-500"
+                >{{ saleCredit.total_price }} /s</td>
                 <td><input
                   v-model="saleCredit.status"
                   type="checkbox"
@@ -77,10 +105,13 @@
               </tr>
             </tbody>
           </table>
+            </div>
+
 
         </div>
         </div>
       </div>
+
       <div v-else>
         <div>
           <p>Fecha de registro: {{ creditCancelled.registration_date }} </p>
@@ -103,9 +134,10 @@
           >Cancelar credito</button>
         </div>
       </div>
-    </div>
   </div>
   <FooterView />
+  </div>
+
 </template>
 
 <script setup lang="ts">

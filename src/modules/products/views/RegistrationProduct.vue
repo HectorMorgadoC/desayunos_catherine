@@ -1,6 +1,6 @@
 <template>
-
-    <BrowserView
+    <div class="flex flex-col min-h-screen">
+      <BrowserView
         :connection="false"
         :message="'Registrar producto'"
         />
@@ -43,6 +43,8 @@
                 </div>
             </div>
     <FooterView />
+    </div>
+
 </template>
 
 <script setup lang="ts">

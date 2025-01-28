@@ -1,24 +1,25 @@
 <template>
-  <BrowserView
+  <div class="flex flex-col min-h-screen">
+    <BrowserView
   :connection="false"
   :message="'Ingresos'"
   />
-  <div class="mt-8 mx-12 flex flex-row justify-center gap-64">
-        <div class="flex justify-center items-start">
-          <ul class="w-32 pl-6 flex flex-col justify-center gap-4">
+  <div class="flex flex-row justify-center gap-16 my-8">
+        <div class="">
+          <ul class="rounded-box w-56">
             <li class="flex items-center" >
               <RouterLink :to="{ name: 'sale' }"
-                class="w-full rounded-lg px-4 py-2 bg-yellow-400 text-center flex justify-center text-white hover:bg-orange-300 hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"> Ventas </RouterLink></li>
+                class="w-full rounded-lg px-6 py-2 bg-yellow-400 text-center flex items-center justify-center text-white mb-3 hover:bg-orange-300 hover:text-white hover:border-transparent duration-400 cursor-pointer hover:shadow"> Ventas </RouterLink></li>
             <li
             class="flex items-center"
             >
             <RouterLink
             :to="{ name: 'credit' }"
-            class="w-full rounded-lg px-4 py-2 bg-yellow-400 text-center flex justify-center text-white  hover:bg-orange-300  hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"> Creditos </RouterLink></li>
+            class="w-full rounded-lg px-6 py-2 bg-yellow-400 text-center flex items-center justify-center text-white mb-3 hover:bg-orange-300 hover:text-white hover:border-transparent duration-400 cursor-pointer hover:shadow"> Creditos </RouterLink></li>
             <li
             class="flex items-center"><button
               @click="deleteIncomeRecordById"
-              class="w-full rounded-lg px-4 py-2 bg-yellow-400 text-center flex justify-center text-white  hover:bg-orange-300   hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"> Eliminar </button></li>
+              class="w-full rounded-lg px-6 py-2 bg-yellow-400 text-center flex items-center justify-center text-white mb-3 hover:bg-orange-300 hover:text-white hover:border-transparent duration-400 cursor-pointer hover:shadow"> Eliminar </button></li>
           </ul>
         </div>
 
@@ -110,6 +111,8 @@
 
   </div>
   <FooterView />
+  </div>
+
 </template>
 
 <script setup lang="ts">
