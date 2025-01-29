@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="flex flex-col min-h-screen">
     <BrowserView
   :connection="false"
   :message="'Productos'"

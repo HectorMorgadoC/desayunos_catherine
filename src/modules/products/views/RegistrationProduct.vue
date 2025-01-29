@@ -62,7 +62,7 @@
     const registerProduct = async() => {
     const toast = useToast()
     try {
-        const newRegisterProductData = await RegistrationProduct(newProduct.description, newProduct.value);
+        const newRegisterProductData = await RegistrationProduct(newProduct.description, Number(newProduct.value));
 
         if ('description' in newRegisterProductData) {
             const { title, description } = newRegisterProductData

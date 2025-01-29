@@ -1,6 +1,6 @@
 <template>
-  <div class="card bg-base-100 w-full shadow-xl m-2 rounded-xl overflow-hidden">
-     <figure class="w-100 h-64">
+  <div class="card bg-base-100 w-full  shadow-xl m-2 rounded-xl overflow-hidden">
+     <figure class="w-full h-64">
        <img
          :src="image"
          :alt="image"
@@ -15,3 +15,5 @@
  }
  defineProps<Props>()
  </script>
+
+
