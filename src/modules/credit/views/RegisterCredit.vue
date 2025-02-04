@@ -47,7 +47,7 @@
                   >Cantidad</label>
                   <input
                   v-model="newCredit.quantity"
-                  class="w-full h-10 mt-2 text-center bg-yellow-400  rounded-lg text-white rounded-lg hover:bg-orange-300 hover:text-white transition duration-300 cursor-pointer hover:border-transparent hover:shadow"
+                  class="background_all h-1/3 mt-2 w-full px-2 py-2 border border-solid border-orange-600 rounded-lg text-orange-600 focus:outline-none focus:ring-1 focus:ring-orange-500"
                   type="number"
                   placeholder="Ingrese la cantidad"
                   required

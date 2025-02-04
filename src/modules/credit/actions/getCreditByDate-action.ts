@@ -3,9 +3,14 @@ import router from "@/router";
 import { useLocalStorage } from "@vueuse/core";
 import { AxiosError } from "axios";
 import { useToast } from "vue-toastification";
+import type { Credit } from "../interface/credit";
 
+interface ErrorRequest {
+  message: string,
+  status: number
+}
 
-export const getCreditByDate = async(date: string) => {
+export const getCreditByDate = async(date: string): Promise< Credit[] | ErrorRequest> => {
 
   const token = useLocalStorage('token', null).value
 
@@ -19,7 +24,7 @@ export const getCreditByDate = async(date: string) => {
 
   try {
 
-    const { data } = await apiFinansas.get(`finance/income/credit/${date}`,
+    const  data  = await apiFinansas.get<Credit[]>(`finance/income/credit/${date}`,
       {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -27,9 +32,9 @@ export const getCreditByDate = async(date: string) => {
       }
     })
 
-    return {
-      data
-    }
+    return data.data
+
+
 
   } catch (error) {
     if (error instanceof AxiosError) {

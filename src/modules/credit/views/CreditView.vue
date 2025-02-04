@@ -175,9 +175,14 @@
 
     const dateRegister = async () => {
       try {
-        const { data } = await getCreditByDate(dateCredit.date)
-        messageCondition(data)
-        credit.value = data
+        const  result  = await getCreditByDate(dateCredit.date)
+        console.log(result)
+        if (Array.isArray(result)) {
+          messageCondition(result)
+          credit.value = result
+        } else {
+          throw new Error(`Error en datos de ingreso: ${result}`)
+        }
       } catch (error) {
         throw new Error(`Error en datos de ingreso: ${error}`)
 

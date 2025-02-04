@@ -4,7 +4,7 @@
   :connection="false"
   :message="'Productos'"
   />
-      <div class="flex items-center justify-center gap-16 my-8">
+      <div class="flex items-start justify-center gap-16 my-8">
         <div class="">
           <ul class="rounded-box w-56">
             <li class="flex items-center">

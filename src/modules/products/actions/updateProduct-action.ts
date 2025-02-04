@@ -5,8 +5,13 @@ import { useLocalStorage } from "@vueuse/core";
 import { AxiosError } from "axios";
 import { useToast } from "vue-toastification";
 
+interface ErrorRequest {
+  message: string,
+  status: number
+}
 
-export const updateProduct = async(product: Product) => {
+
+export const updateProduct = async(product: Product): Promise<Product | ErrorRequest> => {
 
   const token = useLocalStorage('token', null).value
 
@@ -20,7 +25,7 @@ export const updateProduct = async(product: Product) => {
 
   try {
 
-    const { data } = await apiFinansas.patch('/finance/product',
+    const { data } = await apiFinansas.patch<Product>('/finance/product',
       {
         id: product.id,
         description: product.description,
@@ -35,7 +40,9 @@ export const updateProduct = async(product: Product) => {
 
 
     return {
-      data
+      id: data.id,
+      description: data.description,
+      value: data.value
     }
 
   } catch (error) {

@@ -4,12 +4,8 @@ import router from "@/router"
 import { useLocalStorage } from "@vueuse/core"
 import { AxiosError } from "axios"
 import { useToast } from "vue-toastification"
+import type { Product } from "@/modules/menu/interface/menuData"
 
-
-interface ProductResponse {
-	title: string,
-	description: string
-}
 
 interface ErrorRequest {
   message: string,
@@ -19,7 +15,7 @@ interface ErrorRequest {
 export const RegistrationProduct = async (
   description: string,
   value: number
-): Promise<ProductResponse | ErrorRequest > => {
+): Promise<Product | ErrorRequest > => {
   const token = useLocalStorage('token', null).value
 
   if (!token) {
@@ -31,7 +27,7 @@ export const RegistrationProduct = async (
   }
 
   try {
-    const { data } = await apiFinansas.post<ProductResponse>(
+    const { data } = await apiFinansas.post<Product>(
       '/finance/product',
       { description, value },
       {
@@ -43,8 +39,9 @@ export const RegistrationProduct = async (
     )
 
     return {
-      title: data.title,
-      description: data.description
+      id: data.id,
+      description: data.description,
+      value: data.value
     }
 
   } catch (error) {

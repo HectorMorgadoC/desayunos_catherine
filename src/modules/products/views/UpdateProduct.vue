@@ -99,6 +99,7 @@
   import { updateProduct } from '../actions/updateProduct-action';
   import { useToast } from 'vue-toastification';
 
+
   const listProduct: Product[] = useLocalStorage<Product[]>('product',[]).value
   const product = ref<string>('')
   const productRegistrationVisibility = ref<boolean>(false)
@@ -141,13 +142,26 @@
       value : productModificationRecord.value
     }
 
-    const { data } = await updateProduct(product)
+    try {
+      const result = await updateProduct(product)
 
-    productRegistrationVisibility.value = false
-    toast.success(`${data.title} : ${data.description}`)
-    console.log(data)
+      if ('description' in result) {
+        const { description,id } = result
+        productRegistrationVisibility.value = false
+        listProduct.map( (p, index) => {
+          if(p.id === id) {
+            listProduct[index].description = description
+            listProduct[index].value = product.value
+          }
+        })
+        useLocalStorage<Product[]>('product', listProduct)
+        toast.success(`Producto: ${description} modificado`)
+      }
 
-
+    } catch (error) {
+      toast.error('Error al registrar producto')
+      throw new Error(`Error new register product: ${error}`)
+    }
   }
 
 </script>

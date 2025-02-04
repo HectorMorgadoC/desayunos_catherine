@@ -19,16 +19,12 @@ export const deleteProduct = async(id: string) => {
 
   try {
 
-    const { data } = await apiFinansas.delete(`/finance/product/${id}`,
+    await apiFinansas.delete(`/finance/product/${id}`,
       {
       headers: {
         Authorization: `Bearer ${token}`,
       }
     })
-
-    return {
-      data
-    }
 
   } catch (error) {
     if (error instanceof AxiosError) {

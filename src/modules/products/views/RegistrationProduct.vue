@@ -53,28 +53,36 @@
     import { reactive } from 'vue';
     import { RegistrationProduct } from '../actions/createProduct-action';
     import { useToast } from 'vue-toastification'
+    import { useLocalStorage } from '@vueuse/core';
+    import type { Product } from '../../menu/interface/menuData';
 
     const newProduct = reactive({
         description: '',
         value:0
     })
 
+    const listProduct: Product[] = useLocalStorage<Product[]>('product',[]).value
+
     const registerProduct = async() => {
     const toast = useToast()
     try {
         const newRegisterProductData = await RegistrationProduct(newProduct.description, Number(newProduct.value));
 
-        if ('description' in newRegisterProductData) {
-            const { title, description } = newRegisterProductData
+        if ('id' in newRegisterProductData) {
+            const { description, value } = newRegisterProductData
             newProduct.description = ''
             newProduct.value = 0
-            toast.success(`${title} : ${description}`)
+            listProduct.push(newRegisterProductData)
+            useLocalStorage<Product[]>('product', listProduct)
+
+            toast.success(`Nuevo producto: ${description} : valor: ${value} /S`)
         } else {
             toast.error('Nuevo producto no registrado')
         }
 
     } catch (error) {
-        throw new Error(`Error new register product: ${error}`)
+      toast.error('Error al registrar producto')
+      throw new Error(`Error new register product: ${error}`)
   }
 }
 </script>

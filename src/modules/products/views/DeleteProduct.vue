@@ -68,10 +68,20 @@
 
 
   const deleteRegisterProduct  = async(id: string) => {
-    const { data } = await deleteProduct(id)
-    console.log( data )
-    router.push({name: 'product'})
-    toast.success(`Producto eliminado`)
+
+    try {
+      await deleteProduct(id)
+      listProduct.splice(listProduct.findIndex(p => p.id === id), 1)
+      useLocalStorage<Product[]>('product', listProduct)
+      router.push({name: 'product'})
+      toast.success(`Producto eliminado`)
+    } catch (error) {
+      toast.error('Error al eliminar producto')
+      throw new Error(`Error delete register product: ${error}`)
+    }
+
+
+
 
   }
 
